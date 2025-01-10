@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/scss/index.css">
     <title>Formulario Registro alumnos y familiares</title>
 </head>
 <body>
     <form>
 
-        <div class="Alumno">
+        <fieldset class="Alumno">
+            <legend>Información del Alumno</legend>
             <label for="nombre">Nombre</label>
             <input type="text" name="nombre" id="nombre" placeholder="Introduzca el nombre del alumno">
             <label for="nombre">Apellidos</label>
@@ -22,9 +24,10 @@
             <select name="conocidos" id="conocidos"></select>
             <!-- leer json y mostrar selecciones en el script -->
 
-        </div>
+        </fieldset>
 
-        <div class="familia">
+        <fieldset class="familia">
+            <legend>Información de la familia</legend>
             <label for="nombre">Nombre</label>
             <input type="text" name="nombre" id="nombre" placeholder="Introduzca el nombre del alumno">
             <label for="nombre">Apellidos</label>
@@ -43,19 +46,52 @@
             <label for="conocidos">Idiomas conocidos:</label>
             <select name="conocidos" id="conocidos"></select>
             <!-- leer json y mostrar selecciones en el script -->
-        </div>
+        </fieldset>
 
-        <div class="direccion">
+        <fieldset class="direccion">
+            <legend>Información de la dirección</legend>
+            <label for="pais">País:</label>
+            <select name="pais" id="pais"></select>
 
-        </div>
+            <label for="ciudad">Ciudad:</label>
+            <select name="ciudad" id="ciudad"></select>
+
+            <label for="poblacion">Población:</label>
+            <select name="poblacion" id="poblacion"></select>
+
+            <label for="direccionCompleta">Dirección Completa</label>
+            <input type="text" name="direccionCompleta" id="direccionCompleta" placeholder="Introduzca la dirección completa">
+
+            <label for="cp">Código postal:</label>
+            <input type="text" pattern="[0-9]{5}" placeholder="Código postal" required>
+        </fieldset>
         
-        <div class="datos">
+        <fieldset class="datos">
+            <legend>Datos académicos</legend>
+            
+            <label for="colegio">Colegio de procedencia</label>
+            <input type="text" name="colegio" id="colegio">
 
-        </div>
+            <label for="nivelEstudios">Nivel de estudios alcanzado:</label>
+            <select name="nivelEstudios" id="nivelEstudios"></select>
 
-        <div class="medica">
+            <label for="idiomasEstudiados">Idiomas estudiados:</label>
+            <select name="idiomasEstudiados" id="idiomasEstudiados"></select>
 
-        </div>
+            <label for="nivelSolicitado">Nivel de estudios solicitado:</label>
+            <select name="nivelSolicitado" id="nivelSolicitado"></select>
+
+        </fieldset>
+
+        <fieldset class="medica">
+            <legend>Información médica</legend>
+
+            <label for="alergias">Alergias:</label>
+            <select name="alergias" id="alergias"></select>
+
+            <label for="medicacion">Medicación:</label>
+            <input type="text" name="medicacion" id="medicacion">
+        </fieldset>
 
     </form>
     <script src="js/index.js"></script>

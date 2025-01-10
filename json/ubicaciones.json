@@ -1,0 +1,73 @@
+{
+    "ubicaciones": [
+      {
+        "pais": "México",
+        "ciudades": [
+          {
+            "ciudad": "Ciudad de México",
+            "poblaciones": ["Coyoacán", "Tlalpan", "Iztapalapa"]
+          },
+          {
+            "ciudad": "Guadalajara",
+            "poblaciones": ["Zapopan", "Tlaquepaque", "Tonala"]
+          },
+          {
+            "ciudad": "Monterrey",
+            "poblaciones": ["San Pedro Garza García", "San Nicolás de los Garza", "Santa Catarina"]
+          }
+        ]
+      },
+      {
+        "pais": "España",
+        "ciudades": [
+          {
+            "ciudad": "Madrid",
+            "poblaciones": ["Chamberí", "Lavapiés", "Retiro"]
+          },
+          {
+            "ciudad": "Barcelona",
+            "poblaciones": ["Gracia", "Eixample", "Barceloneta"]
+          },
+          {
+            "ciudad": "Sevilla",
+            "poblaciones": ["Triana", "Macarena", "Los Remedios"]
+          }
+        ]
+      },
+      {
+        "pais": "Argentina",
+        "ciudades": [
+          {
+            "ciudad": "Buenos Aires",
+            "poblaciones": ["Palermo", "Recoleta", "San Telmo"]
+          },
+          {
+            "ciudad": "Córdoba",
+            "poblaciones": ["Nueva Córdoba", "Alberdi", "Cerro de las Rosas"]
+          },
+          {
+            "ciudad": "Rosario",
+            "poblaciones": ["Centro", "Pichincha", "Fisherton"]
+          }
+        ]
+      },
+      {
+        "pais": "Estados Unidos",
+        "ciudades": [
+          {
+            "ciudad": "Nueva York",
+            "poblaciones": ["Manhattan", "Brooklyn", "Queens"]
+          },
+          {
+            "ciudad": "Los Ángeles",
+            "poblaciones": ["Hollywood", "Santa Monica", "Beverly Hills"]
+          },
+          {
+            "ciudad": "Chicago",
+            "poblaciones": ["The Loop", "Hyde Park", "Lincoln Park"]
+          }
+        ]
+      }
+    ]
+  }
+  

@@ -1,0 +1,20 @@
+{
+    "gradosDeEstudio": [
+      "Primaria",
+      "Secundaria",
+      "Bachillerato",
+      "Técnico",
+      "Licenciatura",
+      "Ingeniería",
+      "Maestría",
+      "Doctorado",
+      "Postdoctorado",
+      "Diplomado",
+      "Certificación Profesional",
+      "Curso Vocacional",
+      "Educación Continua",
+      "Escuela de Oficios",
+      "Educación Especializada"
+    ]
+  }
+  
