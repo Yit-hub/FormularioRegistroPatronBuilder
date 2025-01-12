@@ -16,17 +16,17 @@ async function cargarDatos() {
     const profesionesData = await fetchJSON('./json/profesiones.json');
     const gradosData = await fetchJSON('./json/estudios.json');
     const alergiasData = await fetchJSON('./json/alergias.json');
+    const ubicacionesData = await fetchJSON('./json/ubicaciones.json');
 
+    if (ubicacionesData) cargarDatos("ciudadNacimiento", ubicacionesData.ciudades)
     if (idiomasData) {
         cargarOpciones("idiomasEstudiados", idiomasData.idiomas);
         cargarOpciones("conocidos", idiomasData.idiomas);
         cargarOpciones("lengua", idiomasData.idiomas);
         cargarOpciones("fConocidos", idiomasData.idiomas);
         cargarOpciones("fLengua", idiomasData.idiomas);
-
-
-
     }
+
     if (profesionesData) cargarOpciones("profesion", profesionesData.profesiones);
     if (gradosData) {
         cargarOpciones("nivelEstudios", gradosData.gradosDeEstudio);
@@ -35,17 +35,6 @@ async function cargarDatos() {
     if (alergiasData) cargarOpciones("alergias", alergiasData.alergias);
 }
 
-// // Función para cargar opciones en un <select>
-// function cargarOpciones(selectId, opciones) {
-//     const select = document.getElementById(selectId);
-//     opciones.forEach(opcion => {
-//         const optionElement = document.createElement("option");
-//         optionElement.value = opcion;
-//         optionElement.textContent = opcion;
-//         select.appendChild(optionElement);
-//     });
-// }
-// Función para cargar opciones en un <select>
 function cargarOpciones(selectId, opciones) {
     const select = document.getElementById(selectId);
     select.innerHTML = ''; // Limpiar opciones existentes
