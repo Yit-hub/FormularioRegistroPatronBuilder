@@ -1,61 +1,96 @@
-* {
+@charset "UTF-8";
+/* Estilo general */
+body {
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  color: #303633;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
 }
 
-body {
-  background-color: #f5f5f5;
-}
-
+/* Formularios */
 form {
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 5%;
-  padding: 1%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Etiquetas */
+form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Entradas y select */
+form input,
+form select,
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Campos inválidos */
+.invalid {
+  border-color: #e74c3c !important;
+  background-color: #fdf2f2;
+}
+
+/* Mensajes de error */
+form .invalid + span {
+  display: block;
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+/* Botones */
+form .enviar {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+form .enviar:hover {
+  background-color: #45a049;
+}
+
+/* Fieldsets y legends */
+fieldset {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 legend {
   font-weight: bold;
+  color: #333;
 }
 
-fieldset {
-  margin-top: 1%;
-  padding: 1%;
+/* Hover y foco */
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #4CAF50;
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
 
-label, input {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2px;
-}
-
-input {
-  width: 20%;
-}
-
-.default {
-  font-weight: bold;
-}
-
-.enviar {
-  margin-top: 1%;
-  width: 5%;
-  float: right;
-  background-color: #F8E16C;
-  border-style: outset;
-}
-
-.error-message {
-  color: red;
-  font-size: 12px;
-}
-
-input.error {
-  border-color: red;
-}
-
-input.valid {
-  border-color: green;
+/* Multi-selección */
+form select.multiples {
+  height: auto;
+  padding: 5px;
 }/*# sourceMappingURL=index.css.map */
