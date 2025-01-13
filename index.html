@@ -7,12 +7,16 @@
     <title>Formulario Registro alumnos y familiares</title>
 </head>
 <body>
+    <script src="/js/validacionFormulario.js"></script>
     <form>
         <h1>Formulario de Registro de alumnos y familiares</h1>
         <fieldset class="Alumno">
             <legend>Información del Alumno</legend>
+
             <label for="nombre">Nombre</label>
             <input type="text" name="nombre" id="nombre" placeholder="Introduzca el nombre del alumno">
+            <span id="nombreError" class="error-message"></span>
+
             <label for="nombre">Apellidos</label>
             <input type="text" name="apellidos" id="nombre" placeholder="Introduzca el nombre del alumno">
             <label for="nif">NIF:</label>
@@ -21,7 +25,9 @@
             <select name="lengua" id="lengua"></select>
             <!-- leer json y mostrar selecciones en el script -->
             <label for="conocidos">Idiomas conocidos:</label>
-            <select name="conocidos" id="conocidos"></select>
+            <select name="conocidos" id="conocidos" multiple class="multiples">
+                <option value="" disabled selected>Mantenga ctrl para seleccionar varios</option>
+            </select>
             <!-- leer json y mostrar selecciones en el script -->
 
         </fieldset>
@@ -44,7 +50,7 @@
             <select name="fLengua" id="fLengua"></select>
             <!-- leer json y mostrar selecciones en el script -->
             <label for="fConocidos">Idiomas conocidos:</label>
-            <select name="fConocidos" id="fConocidos"></select>
+            <select name="fConocidos" id="fConocidos" multiple></select>
             <!-- leer json y mostrar selecciones en el script -->
         </fieldset>
 
@@ -70,13 +76,13 @@
             <legend>Datos académicos</legend>
             
             <label for="colegio">Colegio de procedencia</label>
-            <input type="text" name="colegio" id="colegio">
+            <input type="text" name="colegio" id="colegio" placeholder="Inserte el nombre del colegio">
 
             <label for="nivelEstudios">Nivel de estudios alcanzado:</label>
             <select name="nivelEstudios" id="nivelEstudios"></select>
 
             <label for="idiomasEstudiados">Idiomas estudiados:</label>
-            <select name="idiomasEstudiados" id="idiomasEstudiados"></select>
+            <select name="idiomasEstudiados" id="idiomasEstudiados" multiple></select>
 
             <label for="nivelSolicitado">Nivel de estudios solicitado:</label>
             <select name="nivelSolicitado" id="nivelSolicitado"></select>
@@ -87,10 +93,10 @@
             <legend>Información médica</legend>
 
             <label for="alergias">Alergias:</label>
-            <select name="alergias" id="alergias"></select>
+            <select name="alergias" id="alergias" multiple></select>
 
             <label for="medicacion">Medicación:</label>
-            <input type="text" name="medicacion" id="medicacion">
+            <textarea name="medicacion" id="medicacion"></textarea>
         </fieldset>
         <input class="enviar" type="button" value="Enviar">
     </form>

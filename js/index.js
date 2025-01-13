@@ -1,3 +1,4 @@
+
 async function fetchJSON(url) {
     try {
         const response = await fetch(url);
@@ -44,7 +45,8 @@ function cargarOpciones(selectId, opciones) {
     select.innerHTML = ''; // Limpiar opciones existentes
     const defaultOption = document.createElement('option');
     defaultOption.value = '';
-    defaultOption.textContent = 'Seleccione una opción';
+    defaultOption.textContent = 'Seleccione una opción o mantenga ctrl en las opciones múltiples';
+    defaultOption.classList.add("default")
     select.appendChild(defaultOption);
   
     opciones.forEach(opcion => {
