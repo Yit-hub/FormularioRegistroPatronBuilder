@@ -18,7 +18,11 @@ async function cargarDatos() {
     const alergiasData = await fetchJSON('./json/alergias.json');
     const ubicacionesData = await fetchJSON('./json/ubicaciones.json');
 
-    if (ubicacionesData) cargarDatos("ciudadNacimiento", ubicacionesData.ciudades)
+    // Obtener lista global de ciudades
+  const todasLasCiudades = ubicacionesData.ubicaciones.flatMap(ubicacion =>
+    ubicacion.ciudades.map(ciudad => ciudad.ciudad)
+  );
+  if (todasLasCiudades) cargarOpciones('ciudadNacimiento', todasLasCiudades);
     if (idiomasData) {
         cargarOpciones("idiomasEstudiados", idiomasData.idiomas);
         cargarOpciones("conocidos", idiomasData.idiomas);
