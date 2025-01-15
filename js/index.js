@@ -1,17 +1,3 @@
-
-async function fetchJSON(url) {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Error al obtener ${url}: ${response.statusText}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.error(`Error: ${error.message}`);
-        return null;
-    }
-}
-
 async function cargarDatos() {
     const idiomasData = await fetchJSON('./json/idiomas.json');
     const profesionesData = await fetchJSON('./json/profesiones.json');
