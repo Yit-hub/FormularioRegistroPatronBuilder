@@ -93,4 +93,8 @@ form textarea:focus {
 form select.multiples {
   height: auto;
   padding: 5px;
+}
+
+textarea {
+  resize: none;
 }/*# sourceMappingURL=index.css.map */
