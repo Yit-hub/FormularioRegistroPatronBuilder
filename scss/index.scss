@@ -50,7 +50,9 @@ form .invalid + span {
     margin-top: -10px;
     margin-bottom: 10px;
 }
-
+.default{
+    font-weight: bold;
+}
 /* Botones */
 form .enviar {
     background-color: #4CAF50;
