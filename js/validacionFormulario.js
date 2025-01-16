@@ -98,15 +98,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
     validateFields();
 
-    // Submit handler
-    form.querySelector(".enviar").addEventListener("click", (event) => {
-        event.preventDefault();
-        const invalidFields = form.querySelectorAll(".invalid");
+// Submit handler
+form.querySelector(".enviar").addEventListener("click", (event) => {
+    event.preventDefault(); // Evitar el envío por defecto
 
-        if (invalidFields.length > 0) {
-            alert("Por favor, corrija los errores antes de enviar el formulario.");
+    // Valida todos los campos manualmente
+    const fieldsToValidate = [
+        ...document.querySelectorAll(".Alumno input, .Alumno select"),
+        ...document.querySelectorAll(".familia input, .familia select"),
+        ...document.querySelectorAll(".direccion input, .direccion select"),
+        ...document.querySelectorAll(".datos input, .datos select"),
+        ...document.querySelectorAll(".medica select, .medica textarea")
+    ];
+
+    let formIsValid = true;
+
+    fieldsToValidate.forEach(field => {
+        const validationFn = field.getAttribute("pattern") ? 
+            (value) => new RegExp(field.getAttribute("pattern")).test(value) :
+            (value) => value.trim() !== "";
+
+        const isValid = validationFn(field.value.trim());
+        if (!isValid) {
+            field.classList.add("invalid");
+            formIsValid = false;
+
+            // Mostrar mensaje de error si corresponde
+            const errorContainer = field.nextElementSibling;
+            if (errorContainer) {
+                const errorMessage = field.getAttribute("data-error-message") || "Este campo es obligatorio.";
+                errorContainer.textContent = errorMessage;
+            }
         } else {
-            alert("Formulario enviado correctamente.");
+            field.classList.remove("invalid");
+            const errorContainer = field.nextElementSibling;
+            if (errorContainer) {
+                errorContainer.textContent = "";
+            }
         }
     });
+
+    if (!formIsValid) {
+        alert("Por favor, corrija los errores antes de enviar el formulario.");
+    } else {
+        alert("Formulario enviado correctamente.");
+        // Aquí puedes manejar el envío del formulario
+    }
+});
+
 });
