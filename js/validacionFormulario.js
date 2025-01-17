@@ -1,13 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("form");
 
-    // Helper function to validate NIF
     const validateNIF = (nif) => /^[0-9]{8}[A-Z]$/.test(nif);
+    const validatePostalCode = (cp) => /^[0-9]{5}$/.test(cp);
 
-    // Helper function to validate Postal Code
-    //const validatePostalCode = (cp) => /^[0-9]{5}$/.test(cp);
-
-    // Generic validation function
     const validateField = (field, validationFn, errorMessage) => {
         const errorContainer = field.nextElementSibling;
         if (!validationFn(field.value.trim())) {
@@ -23,9 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Field validation setup
     const validateFields = () => {
-        const alumnoFields = [
+        const fields = [
             { selector: ".Alumno input[name='nombre']", validationFn: val => val !== "", error: "El nombre es obligatorio." },
             { selector: ".Alumno input[name='apellidos']", validationFn: val => val !== "", error: "Los apellidos son obligatorios." },
             { selector: ".Alumno input[name='nif']", validationFn: validateNIF, error: "El NIF no tiene un formato válido." },
@@ -33,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
             { selector: ".Alumno select[name='conocidos']", validationFn: val => val.length > 0, error: "Seleccione al menos un idioma conocido." },
         ];
 
-        alumnoFields.forEach(({ selector, validationFn, error }) => {
+        fields.forEach(({ selector, validationFn, error }) => {
             const field = document.querySelector(selector);
             field.addEventListener("blur", () => validateField(field, validationFn, error));
         });
@@ -41,15 +36,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
     validateFields();
 
-    // Submit handler
+    const createModal = (alumno) => {
+        // Create modal structure
+        const modal = document.createElement("div");
+        modal.id = "alumnoModal";
+        modal.style.position = "fixed";
+        modal.style.top = "50%";
+        modal.style.left = "50%";
+        modal.style.transform = "translate(-50%, -50%)";
+        modal.style.backgroundColor = "#fff";
+        modal.style.padding = "20px";
+        modal.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+        modal.style.zIndex = "1000";
+        modal.innerHTML = `
+            <h2>Datos del Alumno</h2>
+            <pre>${JSON.stringify(alumno, null, 2)}</pre>
+            <button id="closeModal">Cerrar</button>
+        `;
+
+        // Append modal to body
+        document.body.appendChild(modal);
+
+        // Add close button functionality
+        document.getElementById("closeModal").addEventListener("click", () => {
+            modal.remove();
+        });
+    };
+
     form.querySelector(".enviar").addEventListener("click", (event) => {
-        event.preventDefault(); // Prevent default submission
+        event.preventDefault();
 
         const fieldsToValidate = [
             ...document.querySelectorAll(".Alumno input, .Alumno select"),
             ...document.querySelectorAll(".familia input, .familia select"),
             ...document.querySelectorAll(".direccion input, .direccion select"),
             ...document.querySelectorAll(".datos input, .datos select"),
+            ...document.querySelectorAll(".medica input, .medica select"),
         ];
 
         let formIsValid = true;
@@ -82,8 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Por favor, corrija los errores antes de enviar el formulario.");
             return;
         }
-
-        alert("Formulario enviado correctamente.");
 
         // Gather form data
         const alumnoNombre = document.querySelector(".Alumno input[name='nombre']").value;
@@ -119,8 +139,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const dMedicos = {
             alergias: Array.from(document.querySelector(".medica select[name='alergias']").selectedOptions).map(opt => opt.value),
-            medicacion: document.getElementById('medicacion').value,
-        }
+            medicacion: document.getElementById("medicacion").value,
+        };
 
         // Create Alumno instance
         const alumno = new AlumnoBuilder()
@@ -135,7 +155,8 @@ document.addEventListener("DOMContentLoaded", () => {
             .setMedica(dMedicos)
             .build();
 
-        console.log(alumno);
+        // Show modal with Alumno data
+        createModal(alumno);
     });
 });
 
