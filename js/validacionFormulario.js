@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         const dMedicos = {
-            alergias: document.querySelector(".medica select[name='alergias']").value,
+            alergias: Array.from(document.querySelector(".medica select[name='alergias']").selectedOptions).map(opt => opt.value),
             medicacion: document.getElementById('medicacion').value,
         }
 
