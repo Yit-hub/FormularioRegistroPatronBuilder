@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("form");
 
     const validateNIF = (nif) => /^[0-9]{8}[A-Z]$/.test(nif);
-    const validatePostalCode = (cp) => /^[0-9]{5}$/.test(cp);
 
     const validateField = (field, validationFn, errorMessage) => {
         const errorContainer = field.nextElementSibling;
