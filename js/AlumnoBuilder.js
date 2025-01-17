@@ -11,6 +11,7 @@ class Alumno {
         this.medica = medica;
     }
 }
+
 class AlumnoBuilder {
     constructor() {
         this.nombre = null;
@@ -23,36 +24,63 @@ class AlumnoBuilder {
         this.dAcademicos = null;
         this.medica = null;
     }
-    setNombre(nombre){
+
+    setNombre(nombre) {
         this.nombre = nombre;
+        return this;
     }
-    setApellidos(apellidos){
+
+    setApellidos(apellidos) {
         this.apellidos = apellidos;
+        return this;
     }
-    setNif(nif){
+
+    setNif(nif) {
         this.nif = nif;
+        return this;
     }
-    setLengua(lengua){
+
+    setLengua(lengua) {
         this.lengua = lengua;
+        return this;
     }
-    setIdioma(idiomas){
+
+    setIdiomas(idiomas) {
         this.idiomas = idiomas;
+        return this;
     }
-    setFamilia(familia){
+
+    setFamilia(familia) {
         this.familia = familia;
+        return this;
     }
-    setDireccion(direccion){
+
+    setDireccion(direccion) {
         this.direccion = direccion;
+        return this;
     }
-    setDacademicos(academicos){
-        this.dAcademicos = academicos;
+
+    setDAcademicos(dAcademicos) {
+        this.dAcademicos = dAcademicos;
+        return this;
     }
-    setMedica(medica){
+
+    setMedica(medica) {
         this.medica = medica;
+        return this;
     }
-    build(){
-        return new Alumno(this.nombre, this.apellidos, this.nif, this.lengua, this.idiomas, this.familia, 
-            this.direccion, this.idiomas, this.familia, this.direccion,this.dAcademicos,this.medica);
+
+    build() {
+        return new Alumno(
+            this.nombre,
+            this.apellidos,
+            this.nif,
+            this.lengua,
+            this.idiomas,
+            this.familia,
+            this.direccion,
+            this.dAcademicos,
+            this.medica
+        );
     }
-    
 }
