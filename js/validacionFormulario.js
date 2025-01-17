@@ -89,11 +89,11 @@ document.addEventListener("DOMContentLoaded", () => {
         nivelSolicitado.addEventListener("change", () => validateField(nivelSolicitado, val => val !== "", "Seleccione el nivel solicitado."));
 
         // Información Médica
-        const alergias = document.querySelector(".medica select[name='alergias']");
-        const medicacion = document.querySelector(".medica textarea[name='medicacion']");
+        //const alergias = document.querySelector(".medica select[name='alergias']");
+        //const medicacion = document.querySelector(".medica textarea[name='medicacion']");
 
-        alergias.addEventListener("change", () => validateField(alergias, () => true, ""));
-        medicacion.addEventListener("blur", () => validateField(medicacion, () => true, ""));
+        //alergias.addEventListener("change", () => validateField(alergias, () => true, ""));
+        //medicacion.addEventListener("blur", () => validateField(medicacion, () => true, ""));
     };
 
     validateFields();
@@ -119,7 +119,7 @@ form.querySelector(".enviar").addEventListener("click", (event) => {
             (value) => value.trim() !== "";
 
         const isValid = validationFn(field.value.trim());
-        if (!isValid) {
+        if (!isValid) { 
             field.classList.add("invalid");
             formIsValid = false;
 
