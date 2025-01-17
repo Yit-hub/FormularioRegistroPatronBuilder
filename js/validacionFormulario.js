@@ -131,6 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .setFamilia(familiares)
             .setDireccion(direccion)
             .setDAcademicos(dAcademicos)
+            .setMedica(dMedicos)
             .build();
 
         console.log(alumno);
