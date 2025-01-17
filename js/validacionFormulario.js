@@ -135,6 +135,26 @@ form.querySelector(".enviar").addEventListener("click", (event) => {
     } else {
         alert("Formulario enviado correctamente.");
         // Aquí puedes manejar el envío del formulario
+
+        const alumnoNombre = document.querySelector(".Alumno input[name='nombre']");
+        const alumnoApellidos = document.querySelector(".Alumno input[name='apellidos']");
+        const alumnoNIF = document.querySelector(".Alumno input[name='nif']");
+        const lenguaMaterna = document.querySelector(".Alumno select[name='lengua']");
+        const idiomasConocidos = document.querySelector(".Alumno select[name='conocidos']");
+        const familiares = document.querySelectorAll(".familia");
+        const direccion = document.querySelectorAll(".direccion");
+        const dAcademicos = document.querySelectorAll(".datos");
+
+        const constructorAlumno = new AlumnoBuilder();
+        const Alumno = constructorAlumno
+            .setNombre(alumnoNombre)
+            .setApellidos(alumnoApellidos)
+            .setNif(alumnoNIF)
+            .setLengua(lenguaMaterna)
+            .setIdioma(idiomasConocidos)
+            .setFamilia(familiares)
+            .setDireccion(direccion)
+            .setDacademicos(dAcademicos)
     }
 });
 
