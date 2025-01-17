@@ -118,7 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         const dMedicos = {
-            medica: document.querySelector(".medica")
+            alergias: document.querySelector(".medica select[name='alergias']").value,
+            medicacion: document.getElementById('medicacion').value,
         }
 
         // Create Alumno instance
