@@ -2,16 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("form");
 
     // Helper function to validate NIF
-    const validateNIF = (nif) => {
-        const nifPattern = /^[0-9]{8}[A-Z]$/;
-        return nifPattern.test(nif);
-    };
+    const validateNIF = (nif) => /^[0-9]{8}[A-Z]$/.test(nif);
 
     // Helper function to validate Postal Code
-    const validatePostalCode = (cp) => {
-        const cpPattern = /^[0-9]{5}$/;
-        return cpPattern.test(cp);
-    };
+    //const validatePostalCode = (cp) => /^[0-9]{5}$/.test(cp);
 
     // Generic validation function
     const validateField = (field, validationFn, errorMessage) => {
@@ -31,131 +25,204 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Field validation setup
     const validateFields = () => {
-        // Datos del Alumno
-        const alumnoNombre = document.querySelector(".Alumno input[name='nombre']");
-        const alumnoApellidos = document.querySelector(".Alumno input[name='apellidos']");
-        const alumnoNIF = document.querySelector(".Alumno input[name='nif']");
-        const lenguaMaterna = document.querySelector(".Alumno select[name='lengua']");
-        const idiomasConocidos = document.querySelector(".Alumno select[name='conocidos']");
+        const alumnoFields = [
+            { selector: ".Alumno input[name='nombre']", validationFn: val => val !== "", error: "El nombre es obligatorio." },
+            { selector: ".Alumno input[name='apellidos']", validationFn: val => val !== "", error: "Los apellidos son obligatorios." },
+            { selector: ".Alumno input[name='nif']", validationFn: validateNIF, error: "El NIF no tiene un formato válido." },
+            { selector: ".Alumno select[name='lengua']", validationFn: val => val !== "", error: "Seleccione una lengua materna." },
+            { selector: ".Alumno select[name='conocidos']", validationFn: val => val.length > 0, error: "Seleccione al menos un idioma conocido." },
+        ];
 
-        alumnoNombre.addEventListener("blur", () => validateField(alumnoNombre, val => val !== "", "El nombre es obligatorio."));
-        alumnoApellidos.addEventListener("blur", () => validateField(alumnoApellidos, val => val !== "", "Los apellidos son obligatorios."));
-        alumnoNIF.addEventListener("blur", () => validateField(alumnoNIF, validateNIF, "El NIF no tiene un formato válido."));
-        lenguaMaterna.addEventListener("change", () => validateField(lenguaMaterna, val => val !== "", "Seleccione una lengua materna."));
-        idiomasConocidos.addEventListener("change", () => validateField(idiomasConocidos, val => val.length > 0, "Seleccione al menos un idioma conocido."));
-
-        // Información de la familia
-        const familiares = document.querySelectorAll(".familia");
-        familiares.forEach(familia => {
-            const nombreFamiliar = familia.querySelector("input[name='nombre']");
-            const apellidosFamiliar = familia.querySelector("input[name='apellidos']");
-            const nifFamiliar = familia.querySelector("input[name='nif']");
-            const ciudadNacimiento = familia.querySelector("select[name='ciudadNacimiento']");
-            const profesion = familia.querySelector("select[name='profesion']");
-            const lenguaFamiliar = familia.querySelector("select[name='fLengua']");
-            const idiomasFamiliar = familia.querySelector("select[name='fConocidos']");
-
-            nombreFamiliar.addEventListener("blur", () => validateField(nombreFamiliar, val => val !== "", "El nombre es obligatorio."));
-            apellidosFamiliar.addEventListener("blur", () => validateField(apellidosFamiliar, val => val !== "", "Los apellidos son obligatorios."));
-            nifFamiliar.addEventListener("blur", () => validateField(nifFamiliar, validateNIF, "El NIF no tiene un formato válido."));
-            ciudadNacimiento.addEventListener("change", () => validateField(ciudadNacimiento, val => val !== "", "Seleccione una ciudad de nacimiento."));
-            profesion.addEventListener("change", () => validateField(profesion, val => val !== "", "Seleccione una profesión."));
-            lenguaFamiliar.addEventListener("change", () => validateField(lenguaFamiliar, val => val !== "", "Seleccione una lengua materna."));
-            idiomasFamiliar.addEventListener("change", () => validateField(idiomasFamiliar, val => val.length > 0, "Seleccione al menos un idioma conocido."));
+        alumnoFields.forEach(({ selector, validationFn, error }) => {
+            const field = document.querySelector(selector);
+            field.addEventListener("blur", () => validateField(field, validationFn, error));
         });
-
-        // Dirección Actual
-        const pais = document.querySelector(".direccion select[name='pais']");
-        const ciudad = document.querySelector(".direccion select[name='ciudad']");
-        const poblacion = document.querySelector(".direccion select[name='poblacion']");
-        const direccionCompleta = document.querySelector(".direccion input[name='direccionCompleta']");
-        const codigoPostal = document.querySelector(".direccion input[pattern]");
-
-        pais.addEventListener("change", () => validateField(pais, val => val !== "", "Seleccione un país."));
-        ciudad.addEventListener("change", () => validateField(ciudad, val => val !== "", "Seleccione una ciudad."));
-        poblacion.addEventListener("change", () => validateField(poblacion, val => val !== "", "Seleccione una población."));
-        direccionCompleta.addEventListener("blur", () => validateField(direccionCompleta, val => val !== "", "La dirección es obligatoria."));
-        codigoPostal.addEventListener("blur", () => validateField(codigoPostal, validatePostalCode, "El código postal no es válido."));
-
-        // Datos Académicos
-        const colegio = document.querySelector(".datos input[name='colegio']");
-        const nivelEstudios = document.querySelector(".datos select[name='nivelEstudios']");
-        const idiomasEstudiados = document.querySelector(".datos select[name='idiomasEstudiados']");
-        const nivelSolicitado = document.querySelector(".datos select[name='nivelSolicitado']");
-
-        colegio.addEventListener("blur", () => validateField(colegio, val => val !== "", "El colegio es obligatorio."));
-        nivelEstudios.addEventListener("change", () => validateField(nivelEstudios, val => val !== "", "Seleccione el nivel de estudios."));
-        idiomasEstudiados.addEventListener("change", () => validateField(idiomasEstudiados, val => val.length > 0, "Seleccione al menos un idioma estudiado."));
-        nivelSolicitado.addEventListener("change", () => validateField(nivelSolicitado, val => val !== "", "Seleccione el nivel solicitado."));
     };
 
     validateFields();
 
-// Submit handler
-form.querySelector(".enviar").addEventListener("click", (event) => {
-    event.preventDefault(); // Evitar el envío por defecto
+    // Submit handler
+    form.querySelector(".enviar").addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent default submission
 
-    // Valida todos los campos manualmente
-    const fieldsToValidate = [
-        ...document.querySelectorAll(".Alumno input, .Alumno select"),
-        ...document.querySelectorAll(".familia input, .familia select"),
-        ...document.querySelectorAll(".direccion input, .direccion select"),
-        ...document.querySelectorAll(".datos input, .datos select"),
-    ];
+        const fieldsToValidate = [
+            ...document.querySelectorAll(".Alumno input, .Alumno select"),
+            ...document.querySelectorAll(".familia input, .familia select"),
+            ...document.querySelectorAll(".direccion input, .direccion select"),
+            ...document.querySelectorAll(".datos input, .datos select"),
+        ];
 
-    let formIsValid = true;
+        let formIsValid = true;
 
-    fieldsToValidate.forEach(field => {
-        const validationFn = field.getAttribute("pattern") ? 
-            (value) => new RegExp(field.getAttribute("pattern")).test(value) :
-            (value) => value.trim() !== "";
+        fieldsToValidate.forEach((field) => {
+            const validationFn = field.getAttribute("pattern")
+                ? (value) => new RegExp(field.getAttribute("pattern")).test(value)
+                : (value) => value.trim() !== "";
 
-        const isValid = validationFn(field.value.trim());
-        if (!isValid) { 
-            field.classList.add("invalid");
-            formIsValid = false;
+            const isValid = validationFn(field.value.trim());
+            if (!isValid) {
+                field.classList.add("invalid");
+                formIsValid = false;
 
-            // Mostrar mensaje de error si corresponde
-            const errorContainer = field.nextElementSibling;
-            if (errorContainer) {
-                const errorMessage = field.getAttribute("data-error-message") || "Este campo es obligatorio.";
-                errorContainer.textContent = errorMessage;
+                const errorContainer = field.nextElementSibling;
+                if (errorContainer) {
+                    const errorMessage = field.getAttribute("data-error-message") || "Este campo es obligatorio.";
+                    errorContainer.textContent = errorMessage;
+                }
+            } else {
+                field.classList.remove("invalid");
+                const errorContainer = field.nextElementSibling;
+                if (errorContainer) {
+                    errorContainer.textContent = "";
+                }
             }
-        } else {
-            field.classList.remove("invalid");
-            const errorContainer = field.nextElementSibling;
-            if (errorContainer) {
-                errorContainer.textContent = "";
-            }
+        });
+
+        if (!formIsValid) {
+            alert("Por favor, corrija los errores antes de enviar el formulario.");
+            return;
         }
-    });
 
-    if (!formIsValid) {
-        alert("Por favor, corrija los errores antes de enviar el formulario.");
-    } else {
         alert("Formulario enviado correctamente.");
-        // Aquí puedes manejar el envío del formulario
 
-        const alumnoNombre = document.querySelector(".Alumno input[name='nombre']");
-        const alumnoApellidos = document.querySelector(".Alumno input[name='apellidos']");
-        const alumnoNIF = document.querySelector(".Alumno input[name='nif']");
-        const lenguaMaterna = document.querySelector(".Alumno select[name='lengua']");
-        const idiomasConocidos = document.querySelector(".Alumno select[name='conocidos']");
-        const familiares = document.querySelectorAll(".familia");
-        const direccion = document.querySelectorAll(".direccion");
-        const dAcademicos = document.querySelectorAll(".datos");
+        // Gather form data
+        const alumnoNombre = document.querySelector(".Alumno input[name='nombre']").value;
+        const alumnoApellidos = document.querySelector(".Alumno input[name='apellidos']").value;
+        const alumnoNIF = document.querySelector(".Alumno input[name='nif']").value;
+        const lenguaMaterna = document.querySelector(".Alumno select[name='lengua']").value;
+        const idiomasConocidos = Array.from(document.querySelector(".Alumno select[name='conocidos']").selectedOptions).map(opt => opt.value);
 
-        const constructorAlumno = new AlumnoBuilder();
-        const Alumno = constructorAlumno
+        const familiares = Array.from(document.querySelectorAll(".familia")).map(familia => ({
+            nombre: familia.querySelector("input[name='nombre']").value,
+            apellidos: familia.querySelector("input[name='apellidos']").value,
+            nif: familia.querySelector("input[name='nif']").value,
+            ciudadNacimiento: familia.querySelector("select[name='ciudadNacimiento']").value,
+            profesion: familia.querySelector("select[name='profesion']").value,
+            lengua: familia.querySelector("select[name='fLengua']").value,
+            idiomas: Array.from(familia.querySelector("select[name='fConocidos']").selectedOptions).map(opt => opt.value),
+        }));
+
+        const direccion = {
+            pais: document.querySelector(".direccion select[name='pais']").value,
+            ciudad: document.querySelector(".direccion select[name='ciudad']").value,
+            poblacion: document.querySelector(".direccion select[name='poblacion']").value,
+            direccionCompleta: document.querySelector(".direccion input[name='direccionCompleta']").value,
+            codigoPostal: document.querySelector(".direccion input[pattern]").value,
+        };
+
+        const dAcademicos = {
+            colegio: document.querySelector(".datos input[name='colegio']").value,
+            nivelEstudios: document.querySelector(".datos select[name='nivelEstudios']").value,
+            idiomasEstudiados: Array.from(document.querySelector(".datos select[name='idiomasEstudiados']").selectedOptions).map(opt => opt.value),
+            nivelSolicitado: document.querySelector(".datos select[name='nivelSolicitado']").value,
+        };
+
+        const dMedicos = {
+            medica: document.querySelector(".medica")
+        }
+
+        // Create Alumno instance
+        const alumno = new AlumnoBuilder()
             .setNombre(alumnoNombre)
             .setApellidos(alumnoApellidos)
             .setNif(alumnoNIF)
             .setLengua(lenguaMaterna)
-            .setIdioma(idiomasConocidos)
+            .setIdiomas(idiomasConocidos)
             .setFamilia(familiares)
             .setDireccion(direccion)
-            .setDacademicos(dAcademicos)
-    }
+            .setDAcademicos(dAcademicos)
+            .build();
+
+        console.log(alumno);
+    });
 });
 
-});
+
+
+//Clase alumno
+class Alumno {
+    constructor(nombre, apellidos, nif, lengua, idiomas, familia, direccion, dAcademicos, medica) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.nif = nif;
+        this.lengua = lengua;
+        this.idiomas = idiomas;
+        this.familia = familia;
+        this.direccion = direccion;
+        this.dAcademicos = dAcademicos;
+        this.medica = medica;
+    }
+}
+
+class AlumnoBuilder {
+    constructor() {
+        this.nombre = null;
+        this.apellidos = null;
+        this.nif = null;
+        this.lengua = null;
+        this.idiomas = null;
+        this.familia = null;
+        this.direccion = null;
+        this.dAcademicos = null;
+        this.medica = null;
+    }
+
+    setNombre(nombre) {
+        this.nombre = nombre;
+        return this;
+    }
+
+    setApellidos(apellidos) {
+        this.apellidos = apellidos;
+        return this;
+    }
+
+    setNif(nif) {
+        this.nif = nif;
+        return this;
+    }
+
+    setLengua(lengua) {
+        this.lengua = lengua;
+        return this;
+    }
+
+    setIdiomas(idiomas) {
+        this.idiomas = idiomas;
+        return this;
+    }
+
+    setFamilia(familia) {
+        this.familia = familia;
+        return this;
+    }
+
+    setDireccion(direccion) {
+        this.direccion = direccion;
+        return this;
+    }
+
+    setDAcademicos(dAcademicos) {
+        this.dAcademicos = dAcademicos;
+        return this;
+    }
+
+    setMedica(medica) {
+        this.medica = medica;
+        return this;
+    }
+
+    build() {
+        return new Alumno(
+            this.nombre,
+            this.apellidos,
+            this.nif,
+            this.lengua,
+            this.idiomas,
+            this.familia,
+            this.direccion,
+            this.dAcademicos,
+            this.medica
+        );
+    }
+}
