@@ -87,13 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
         nivelEstudios.addEventListener("change", () => validateField(nivelEstudios, val => val !== "", "Seleccione el nivel de estudios."));
         idiomasEstudiados.addEventListener("change", () => validateField(idiomasEstudiados, val => val.length > 0, "Seleccione al menos un idioma estudiado."));
         nivelSolicitado.addEventListener("change", () => validateField(nivelSolicitado, val => val !== "", "Seleccione el nivel solicitado."));
-
-        // Información Médica
-        //const alergias = document.querySelector(".medica select[name='alergias']");
-        //const medicacion = document.querySelector(".medica textarea[name='medicacion']");
-
-        //alergias.addEventListener("change", () => validateField(alergias, () => true, ""));
-        //medicacion.addEventListener("blur", () => validateField(medicacion, () => true, ""));
     };
 
     validateFields();
@@ -108,7 +101,6 @@ form.querySelector(".enviar").addEventListener("click", (event) => {
         ...document.querySelectorAll(".familia input, .familia select"),
         ...document.querySelectorAll(".direccion input, .direccion select"),
         ...document.querySelectorAll(".datos input, .datos select"),
-        ...document.querySelectorAll(".medica select, .medica textarea")
     ];
 
     let formIsValid = true;
