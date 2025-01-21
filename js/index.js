@@ -9,16 +9,25 @@ async function cargarDatos() {
   const todasLasCiudades = ubicacionesData.ubicaciones.flatMap(ubicacion =>
     ubicacion.ciudades.map(ciudad => ciudad.ciudad)
   );
-  if (todasLasCiudades) cargarOpciones('ciudadNacimiento', todasLasCiudades);
+  if (todasLasCiudades){
+    cargarOpciones('ciudadNacimiento', todasLasCiudades);
+    cargarOpciones('ciudadNacimiento2', todasLasCiudades);
+  }
     if (idiomasData) {
         cargarOpciones("idiomasEstudiados", idiomasData.idiomas);
         cargarOpciones("conocidos", idiomasData.idiomas);
         cargarOpciones("lengua", idiomasData.idiomas);
         cargarOpciones("fConocidos", idiomasData.idiomas);
+        cargarOpciones("fConocidos2", idiomasData.idiomas);
         cargarOpciones("fLengua", idiomasData.idiomas);
+        cargarOpciones("fLengua2", idiomasData.idiomas);
+
     }
 
-    if (profesionesData) cargarOpciones("profesion", profesionesData.profesiones);
+    if (profesionesData){
+      cargarOpciones("profesion", profesionesData.profesiones);
+      cargarOpciones("profesion2", profesionesData.profesiones);
+    } 
     if (gradosData) {
         cargarOpciones("nivelEstudios", gradosData.gradosDeEstudio);
         cargarOpciones("nivelSolicitado", gradosData.gradosDeEstudio);
